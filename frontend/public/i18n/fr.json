@@ -1,0 +1,7 @@
+{
+  "demo.title": "Dev-Demo",
+  "demo.simple.text-with-pipe": "FR-This is a text with a pipe",
+  "demo.simple.text-as-attribute": "FR-This is a text as an attribute",
+  "demo.simple.text-as-content": "FR-This is a text as content",
+  "login-page.text.title": "Connexion"
+}

@@ -1,0 +1,18 @@
+<!-- model-management.component.html -->
+<div class="model-management-container">
+  <h2 style="color:white;">Model Management</h2>
+  
+  <!-- List Available Models -->
+  <div>
+    <h3 style="color:white;">Available Models</h3>
+    <ul>
+      <li *ngFor="let model of availableModels" style="color:white;">
+        {{ model.name }} ({{ model.path }})
+      </li>
+    </ul>
+    <button (click)="fetchAvailableModels()">Refresh Models</button>
+  </div>
+
+  <hr />
+
+ 

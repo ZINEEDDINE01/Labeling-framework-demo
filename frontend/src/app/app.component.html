@@ -1,0 +1,136 @@
+<div class="app-container">
+  <h1 style="color:white;">DeeplLabel Annotation Platform</h1>
+  
+  <!-- STEP 1: Upload Section -->
+  <div class="upload-section">
+    <h2 style="color:white;">Upload Images</h2>
+    <div class="upload-page-container">
+      <div class="title">
+        <mat-icon>upload</mat-icon> Upload
+      </div>
+      <div
+        class="upload-container"
+        [class.file-over]="isFileOver"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        *ngIf="!isUploaded"
+      >
+        <mat-icon>cloud_upload</mat-icon>
+        <p>Drag & Drop files here or</p>
+        <input type="file" #fileInput (change)="onFilesSelected($event)" multiple hidden />
+        <button class="browse-file-btn" (click)="fileInput.click()">Browse Files</button>
+      </div>
+
+      <div *ngIf="uploadedFiles.length > 0" class="file-list">
+        <div class="toolbar">
+          <p>{{ isUploaded ? "Uploaded Files:" : "Imported files:" }}</p>
+          <div class="zoom-btns">
+            <button mat-icon-button (click)="zoomIn()">
+              <mat-icon>zoom_in</mat-icon>
+            </button>
+            <button mat-icon-button (click)="zoomOut()">
+              <mat-icon>zoom_out</mat-icon>
+            </button>
+            <span>{{ zoomValue + "%" }}</span>
+          </div>
+        </div>
+        <div class="file-preview-container">
+          <ng-container *ngFor="let file of uploadedFiles">
+            <div
+              class="file-preview"
+              *ngIf="!isImageRemoved(file)"
+              [ngClass]="{ 'file-imported': !isUploaded }"
+            >
+              <button class="remove-img-button" (click)="removeFile(file)" *ngIf="!isUploaded">
+                <mat-icon>close</mat-icon> Remove
+              </button>
+              <mat-icon class="file-uploaded" *ngIf="isUploaded">check</mat-icon>
+              <img
+                [src]="file.preview"
+                [alt]="file.name"
+                [style.width.px]="imageWidth"
+                [style.height.px]="imageHeight"
+              />
+              <span>{{ file.name }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <br />
+
+      <!-- Upload button -->
+      <button
+        class="save-btn"
+        (click)="uploadImages()"
+        *ngIf="uploadedFiles.length > 0 && !isUploaded"
+      >
+        Upload files
+      </button>
+
+      <div *ngIf="!isUploaded" class="file-list">
+        <img class="loading-img" *ngIf="isUpLoading" src="images/loading.gif" />
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Choose Annotation Mode -->
+  <div *ngIf="isUploaded" class="annotation-mode" style="margin-top:20px;">
+    <h2 style="color:white;">Choose Annotation Mode</h2>
+    <button (click)="showManual = true; showAuto = false;">Annotate Manually</button>
+    <button (click)="showAuto = true; showManual = false;">Use Deployed Model</button>
+  </div>
+
+  <!-- STEP 3a: Manual Annotation -->
+  <div *ngIf="showManual" class="manual-annotation">
+    <app-annotation 
+      [images]="annotImages" 
+      (fullyAnnotatedCount)="onFullyAnnotatedCount($event)">
+    </app-annotation>
+  </div>
+
+  <!-- STEP 4: Model Management -->
+  <div *ngIf="isUploaded" class="model-management" style="margin-top:20px;">
+    <app-model-management></app-model-management>
+  </div>
+
+  <!-- STEP 5: Train Custom YOLO Model (only if at least 4 images are annotated manually and custom model isn't trained yet) -->
+  <div *ngIf="isUploaded && fullyAnnotated >= 4" style="margin-top:20px;">
+    <button (click)="trainCustomModel()">Train Custom YOLO Model</button>
+  </div>
+
+  <!-- STEP 6: Training Form -->
+  <div *ngIf="showTrainingForm" style="margin-top:10px; border: 1px solid white; padding: 10px; color:white;">
+    <h3>Custom YOLO Training Parameters</h3>
+    <label>
+      Epochs:
+      <input type="number" [(ngModel)]="epochs" name="epochs" />
+    </label>
+    <br />
+    <label>
+      Model Name:
+      <input type="text" [(ngModel)]="modelName" name="modelName" />
+    </label>
+    <br />
+    <button (click)="submitTraining()">Submit Training</button>
+    <div *ngIf="trainingProgress > 0">
+      <p>Training Progress: {{ trainingProgress }}%</p>
+      <progress max="100" [value]="trainingProgress"></progress>
+    </div>
+  </div>
+
+  <!-- STEP 7: Auto Annotate Dataset after training with Confidence Control -->
+  <div *ngIf="customModelTrained" style="margin-top:20px;">
+    <label for="confidenceThreshold" style="color: white;">Confidence Threshold:</label>
+    <input
+      type="range"
+      id="confidenceThreshold"
+      min="0"
+      max="1"
+      step="0.01"
+      [(ngModel)]="confidenceThreshold"
+    />
+    <span style="color: white;">{{ confidenceThreshold | number:'1.2-2' }}</span>
+    <button (click)="autoAnnotateDataset()">Auto Annotate Dataset</button>
+  </div>
+</div>
