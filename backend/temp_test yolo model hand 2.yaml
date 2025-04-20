@@ -1,0 +1,6 @@
+names:
+- left hand
+- right hand
+nc: 2
+train: C:\Users\PC\Desktop\MARCOM AI SOLUTIONS\Labeling Framework\Demo_Project\annotate\backend\dataset\annotated_batch\images\train
+val: C:\Users\PC\Desktop\MARCOM AI SOLUTIONS\Labeling Framework\Demo_Project\annotate\backend\dataset\annotated_batch\images\val
