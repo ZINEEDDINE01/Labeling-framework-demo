@@ -1,0 +1,19 @@
+
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+// Mixin to apply styles based on screen size
+@mixin screen-size($size) {
+  @if $size == mobile {
+    @media (max-width: #{$breakpoint-mobile}) {
+      @content;
+    }
+  } @else if $size == tablet {
+    @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet}) {
+      @content;
+    }
+  } @else if $size == desktop {
+    @media (min-width: #{$breakpoint-tablet}) {
+      @content;
+    }
+  }
+}

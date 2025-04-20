@@ -1,0 +1,27 @@
+<div class="annotation-container">
+    <h2 style="color:white;">Manual Annotation</h2>
+    
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <button (click)="prevImage()" [disabled]="currentIndex === 0">Prev</button>
+      <span style="color:white;">Image {{ currentIndex + 1 }} of {{ images.length }}</span>
+      <button (click)="nextImage()" [disabled]="currentIndex === images.length - 1">Next</button>
+    </div>
+  
+    <!-- Canvas -->
+    <div class="canvas-wrapper">
+      <canvas #canvas 
+              style="border: 1px solid #aaa; background-color: #222;"
+              (mousedown)="onMouseDown($event)"
+              (mousemove)="onMouseMove($event)"
+              (mouseup)="onMouseUp($event)">
+      </canvas>
+    </div>
+    
+    <!-- Controls -->
+    <div class="controls">
+      <button (click)="deleteSelectedBox()">Delete Selected Box</button>
+      <button (click)="exportCocoAnnotations()">Export COCO JSON</button>
+    </div>
+  </div>
+  

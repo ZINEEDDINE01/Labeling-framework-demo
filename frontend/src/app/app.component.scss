@@ -1,0 +1,532 @@
+@use "../styles//screen-checker.scss" as *;
+@use "../styles/variables.scss" as *;
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 100vh;
+  .page-content {
+    max-width: 1024px;
+    width: 100%;
+  }
+}
+.header {
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Vertically center content */
+  justify-content: space-between; /* Distribute space between title and buttons */
+  padding: 16px; /* Add some padding around the container */
+  background-color: white; /* Optional: Light background color */
+}
+
+.header h1 {
+  margin: 0; /* Remove default margin from the heading */
+  font-size: 24px; /* Adjust font size for the title */
+  font-weight: 600; /* Optional: Make the title bold */
+}
+
+.header {
+  display: flex; /* Enable flexbox for the button container */
+  gap: 8px; /* Add spacing between buttons */
+}
+
+.header .lang {
+  padding: 8px 16px; /* Add padding to buttons */
+  font-size: 20px; /* Adjust font size for button text */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Add rounded corners */
+  color: white; /* Button text color */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+.logout {
+  position: absolute;
+  right: 20px;
+  top: 95%;
+  z-index: 10;
+}
+
+.lang button.active-lang {
+  background-color: #303f9f; /* Highlighted color */
+  color: white; /* Ensure text is visible */
+  font-weight: bold; /* Optional: Make the text bold */
+  border: none;
+}
+
+.page-container {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  border-radius: 0;
+  background-color: $sidenav-bg_color;
+  border-right: 0.5px solid $sidenav-border_color;
+  overflow: hidden;
+  @include screen-size("mobile") {
+    width: 100%;
+  }
+  @include screen-size("tablet") {
+    width: 100%;
+  }
+  @include screen-size("desktop") {
+    width: 250px;
+  }
+  .sidenav-header {
+    .profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 20px 0 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px $sidenav-border_color solid;
+      .initials {
+        height: 45px;
+        width: 45px;
+        background-color: $sidenav-active_bg_color;
+        border: 1px $sidenav-border_color solid;
+        color: $sidenav-text_color;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 500;
+      }
+      .profile-info {
+        .name {
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .email {
+          color: $sidenav-text_color;
+          font-size: 12px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+
+.toggel-sidenav-btn,
+.toggel-sidenav-btn-menu {
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 10px;
+  color: $font-color;
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+.toggel-sidenav-btn {
+  right: 0;
+}
+.toggel-sidenav-btn-menu {
+  border: none;
+  background: transparent;
+  color: $sidenav-text_color;
+  left: 0;
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+  }
+}
+
+//Log out button
+/* From Uiverse.io by vinodjangid07 */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+}
+
+/* plus sign */
+.logout-btn-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+
+  .btn-logout {
+    height: 30px;
+    width: 30px;
+  }
+  .sign {
+    width: 100%;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sign svg {
+    width: 17px;
+  }
+
+  .sign svg path {
+    fill: white;
+  }
+  /* text */
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.3s;
+  }
+  /* hover effect on button width */
+  .btn-logout:hover {
+    width: 130px;
+    border-radius: 40px;
+    transition-duration: 0.3s;
+  }
+
+  .btn-logout:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 10px;
+  }
+  /* hover effect button's text */
+  .btn-logout:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 10px;
+  }
+  /* button click effect*/
+  .btn-logout:active {
+    transform: translate(2px, 2px);
+  }
+}
+
+.app-container {
+  overflow: scroll !important;
+}
+.upload-page-container {
+  color: #fff;
+  width: 100%;
+}
+.form-item {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+
+  .label {
+    color: $sidenav-text_color;
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-left: 2px;
+  }
+}
+
+.title {
+  font-size: 37px;
+  font-weight: 300;
+  color: $sidenav-text_color;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
+.form-container {
+  gap: 24px;
+  align-items: end;
+  width: 100%;
+
+  margin-bottom: 24px;
+  & {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+  }
+  @include screen-size("mobile") {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    .form-item,
+    .save-btn {
+      width: 100%;
+    }
+  }
+
+  .form-item {
+    justify-content: end;
+    flex-grow: 1;
+    max-width: 400px;
+  }
+  .input-elm {
+    background-color: $page-bg_color;
+    border: 1px solid $sidenav-border_color;
+    color: white;
+    padding: 8px 0;
+    border-radius: 5px;
+    max-width: 450px;
+    padding-left: 8px;
+    &:focus,
+    &:active {
+      border: 1px solid $sidenav-text_color;
+    }
+  }
+
+  .save-btn {
+    border: 1px solid #7b7b7b;
+    border-radius: 5px;
+    background: #1c1c1c;
+    color: #7b7b7b;
+    padding: 8px 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    &:hover {
+      background: #7b7b7b;
+      border: 1px solid transparent;
+      color: #2c2c2c;
+    }
+  }
+
+  .input-error {
+    color: #ff4c4c;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+.upload-container {
+  border: 1px dashed $sidenav-text_color;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3sease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+}
+
+.upload-container p {
+  margin: 0;
+  color: #666;
+}
+
+.upload-container.file-over {
+  border-color: #3f51b5;
+  background-color: #f1f1f1;
+}
+
+.file-name {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+.file-list {
+  width: 100%;
+  text-align: left;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.file-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  width: fit-content;
+  justify-content: inherit;
+}
+
+.file-imported {
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #ff4c4c;
+    border-radius: 5px;
+  }
+}
+.file-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  background: #1c1c1c;
+  border-radius: 5px;
+  border: 1px solid transparent;
+
+  .remove-img-button {
+    background-color: rgba(28, 28, 28, 0.8);
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    color: #ff4c4c;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display: none;
+  }
+  &:hover .remove-img-button {
+    display: flex;
+  }
+}
+.file-preview img {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.file-preview span {
+  font-size: 12px;
+  color: #555;
+  max-width: 80px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.browse-file-btn {
+  border: 1px solid #7b7b7b;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: #7b7b7b;
+  padding: 8px 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  &:hover {
+    background: #7b7b7b;
+    border: 1px solid transparent;
+    color: #2c2c2c;
+  }
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 16px;
+  width: 100%;
+  align-items: center;
+  .zoom-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    span {
+      color: #7b7b7b;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button {
+      background: transparent;
+      border: none;
+      color: #7b7b7b;
+      padding: 0;
+      height: fit-content;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      border: 1px solid transparent;
+      &:hover {
+        color: white;
+        border: 1px solid $sidenav-border_color;
+        background-color: $sidenav-active_bg_color;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+.file-uploaded {
+  position: absolute;
+  right: 0;
+  color: #7b7b7b;
+  font-weight: 600;
+  background: #006400;
+  border-radius: 50%;
+}
+
+.save-btn {
+  border: 1px solid #7b7b7b;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: #7b7b7b;
+  padding: 8px 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  &:hover {
+    background: #7b7b7b;
+    border: 1px solid transparent;
+    color: #2c2c2c;
+  }
+}
+
+.loader-container {
+  position: unset; /* Make the div cover the full screen */
+  top: unset;
+  left: unset;
+  width: 200px;
+  height: 200px;
+  background: rgba(22, 22, 22);
+  display: flex; /* Center the card */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Higher than the main content */
+
+  .loader {
+    width: 112px;
+    height: 112px;
+  }
+}
+.loading-img{
+  width: 80px;
+  height: 80px;
+
+  margin-top: 20px;
+  align-self: center;
+}
